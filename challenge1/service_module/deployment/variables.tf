@@ -70,6 +70,10 @@ variable "dns_zone_name" {
   type = string
 }
 
+variable "backendinstance_names" {
+  type = string
+}
+
 variable "dbvm_names" {
   type = string
 }

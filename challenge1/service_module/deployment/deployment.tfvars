@@ -16,6 +16,7 @@ path_rule="/test/*"
 frontend_port=80
 frontend_protocol="http"
 dns_zone_name="test-managed-zone"
+backendinstance_names="test-backend-vm"
 dbvm_name="test-db"
 db_version="db-f1-micro"
 db_names="test-db"

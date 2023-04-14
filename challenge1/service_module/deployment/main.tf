@@ -26,7 +26,6 @@ module "google_vm" {
   machine_type = var.machine_type
   boot_disk_type = var.boot_disk_type
   boot_disk_size = var.boot_disk_size
-  device_name = var.instance_names
 }
 
 resource "google_compute_instance_group" "google_ig"
@@ -66,6 +65,21 @@ module http_lb {
   rrdatas = ["$(var.lb_name).$(var.domain_name)"]
   cname_ttl = "300"
   zone = var.zone
+}
+
+module "google_vm" {
+  source = "../../core_module/instance"
+  depends_on = [module.network]
+  project = var.project
+  zone = var.zone
+  instance_name = var.backendinstance_names
+  network = module.network.google_network
+  subnetwork = module.network.google_subnet
+  image = var.image
+  tags = var.tags
+  machine_type = var.machine_type
+  boot_disk_type = var.boot_disk_type
+  boot_disk_size = var.boot_disk_size
 }
 
 module "db_vm"
