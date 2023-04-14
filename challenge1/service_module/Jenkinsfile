@@ -1,0 +1,30 @@
+pipeline {
+     agent any
+	 
+	 stages {
+	    stage('Terraform init stage') {
+		   steps {
+		      dir("deployment") {
+		        // Required Bucket and prefix has been defined in terraform configuration file. But it can also be defined from jenkins pipeline
+			    sh 'terraform init  -backend=true --backend-config="tf-state-test" --backend-config=prefix="deployment"'
+			  }
+		   }
+		}
+		
+		stage('Terraform plan stage') {
+		   steps {
+		      dir("deployment") {
+			     sh 'terraform plan'
+			  }
+		   }
+		}
+		
+		stage('Terraform apply stage') {
+		   steps {
+		      dir("deployment") {
+			     sh 'terraform apply'
+			  }
+		   }
+		}
+	}
+}
